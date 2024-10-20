@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "1043799054279",
+    "firebase_url": "https://air-medical-station-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "air-medical-station",
+    "storage_bucket": "air-medical-station.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1043799054279:android:bf3df99d0dba98e4812be2",
+        "android_client_info": {
+          "package_name": "com.example.air_medical_station"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBbbR3XhePu7DuT85bDGpXoO-GtsLapiDM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
