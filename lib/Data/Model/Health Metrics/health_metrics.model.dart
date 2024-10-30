@@ -4,24 +4,28 @@ class HealthMetrics {
   String patientId;
   int bloodOxygenLevel;
   int heartRate;
+  String bloodPressure;
+
   //
-  HealthMetrics({
-    required this.patientId,
-    required this.bloodOxygenLevel,
-    required this.heartRate,
-  });
+  HealthMetrics(
+      {required this.patientId,
+        required this.bloodOxygenLevel,
+        required this.heartRate,
+        required this.bloodPressure});
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'patientId': patientId,
       'bloodOxygenLevel': bloodOxygenLevel,
       "heartRate": heartRate,
+      "bloodPressure": bloodPressure,
     };
   }
 
   factory HealthMetrics.fromMap(Map<String, dynamic> map) {
     return HealthMetrics(
       patientId: map['patientId'] as String,
+      bloodPressure: map['bloodPressure'] as String,
       bloodOxygenLevel: map['bloodOxygenLevel'] as int,
       heartRate: map['heartRate'] as int,
     );

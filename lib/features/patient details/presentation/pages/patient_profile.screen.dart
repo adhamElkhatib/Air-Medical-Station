@@ -1,4 +1,5 @@
 //t2 Core Packages Imports
+import 'package:air_medical_station/Data/Repositories/user.repo.dart';
 import 'package:air_medical_station/features/patient%20details/presentation/pages/view_basic_info.screen.dart';
 import 'package:air_medical_station/features/patient%20details/presentation/pages/view_health_metrics.screen.dart';
 import 'package:air_medical_station/features/patient%20details/presentation/pages/view_health_summary.screen.dart';
@@ -8,10 +9,11 @@ import 'package:form_controller/form_controller.dart';
 import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 import 'package:zego_uikit_signaling_plugin/zego_uikit_signaling_plugin.dart';
 
+import '../../../../Data/Model/App User/app_user.model.dart';
 import '../../../../Data/Model/Patient/patient.dart';
 import '../../../../constants.dart';
 import '../../../../core/Services/Auth/AuthService.dart';
-import '../../../call/presentation/widgets/call_invitation.dart';
+import '../../../call/presentation/widgets/call_invitation_widget.dart';
 
 //t2 Dependencies Imports
 //t3 Services
@@ -58,7 +60,7 @@ class _PatientProfileScreenState extends State<PatientProfileScreen>
     //t2 --Controllers & Listeners
     formController = FormController();
     tabController = TabController(length: 4, vsync: this);
-    intializeZegoCall();
+    initializeZegoCall();
     //t2 --Controllers & Listeners
     //
     //t2 --State
@@ -68,17 +70,19 @@ class _PatientProfileScreenState extends State<PatientProfileScreen>
     //t2 --Late & Async Initializers
     //!SECTION
   }
-  Future<void> intializeZegoCall() async {
-    // print("")
+  Future<void> initializeZegoCall() async {
+    AppUser? appUser = await AppUserRepo().readSingle(AuthService().getCurrentUserId());
+    print("intializeZegoCall");
     try {
       if (ZegoUIKitPrebuiltCallInvitationService().isInit) {
         await ZegoUIKitPrebuiltCallInvitationService().uninit();
       }
+
       await ZegoUIKitPrebuiltCallInvitationService().init(
         appID: Constants.appID,
         appSign: Constants.appSign,
         userID: AuthService().getCurrentUserId(),
-        userName: AuthService().getCurrentUserId(),
+        userName: appUser!=null ? "DR/${appUser.name}" :"Your Doctor",
         plugins: [ZegoUIKitSignalingPlugin()],
         invitationEvents: ZegoUIKitPrebuiltCallInvitationEvents(
           onIncomingCallReceived:
@@ -96,11 +100,6 @@ class _PatientProfileScreenState extends State<PatientProfileScreen>
         notificationConfig: ZegoCallInvitationNotificationConfig(
           androidNotificationConfig: ZegoCallAndroidNotificationConfig(
             showFullScreen: true,
-            // fullScreenBackground: 'assets/image/call.png',
-            // channelID: "ZegoUIKit",
-            // channelName: "Call Notifications",
-            // sound: "call",
-            // icon: "call",
           ),
           iOSNotificationConfig: ZegoCallIOSNotificationConfig(
             systemCallingIconName: 'CallKitIcon',
@@ -164,7 +163,16 @@ class _PatientProfileScreenState extends State<PatientProfileScreen>
     return Scaffold(
       appBar: AppBar(
         actions: [
-          CallInvitationPage(
+          // IconButton(
+          //     onPressed: (){
+          //   Navigator.push(context,  MaterialPageRoute<void>(
+          //     builder: (BuildContext context) => const AgoraVideoCall(),
+          //   ),);
+          // },
+          //     icon: const Icon(Icons.video_call_outlined)
+          // ),
+
+          CallInvitationWidget(
             patient: widget.patient,
           ),
         ],

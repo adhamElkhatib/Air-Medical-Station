@@ -1,13 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
-import 'package:zego_uikit_signaling_plugin/zego_uikit_signaling_plugin.dart';
+
+// import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
+// import 'package:zego_uikit_signaling_plugin/zego_uikit_signaling_plugin.dart';
 
 import '../../../Data/Model/App User/app_user.model.dart';
 import '../../../Data/Model/Shared/gender.enum.dart';
 import '../../../Data/Model/Shared/specialization.enum.dart';
 import '../../../Data/Repositories/user.repo.dart';
-import '../../../constants.dart';
 import '../../../core/utils/SnackBar/snackbar.helper.dart';
 
 class AuthService {
@@ -60,13 +60,13 @@ class AuthService {
         ),
         itemId: userCredential.user!.uid,
       );
-      ZegoUIKitPrebuiltCallInvitationService().init(
-        appID: Constants.appID,
-        appSign: Constants.appSign,
-        userID: userCredential.user!.uid,
-        userName: fullName,
-        plugins: [ZegoUIKitSignalingPlugin()],
-      );
+      // ZegoUIKitPrebuiltCallInvitationService().init(
+      //   appID: Constants.appID,
+      //   appSign: Constants.appSign,
+      //   userID: userCredential.user!.uid,
+      //   userName: fullName,
+      //   plugins: [ZegoUIKitSignalingPlugin()],
+      // );
       return true;
     } catch (e) {
       SnackbarHelper.showTemplated(context,
@@ -86,34 +86,34 @@ class AuthService {
       if(userCredential.user != null){
          user =await AppUserRepo().readSingle(userCredential.user!.uid);
       }
-      await ZegoUIKitPrebuiltCallInvitationService().init(
-        appID: Constants.appID,
-        appSign: Constants.appSign,
-        userID: userCredential.user!.uid,
-        userName: user!.name,
-        plugins: [ZegoUIKitSignalingPlugin()],
-        requireConfig: (ZegoCallInvitationData data) {
-          final config = (data.invitees.length > 1)
-              ? ZegoCallInvitationType.videoCall == data.type
-              ? ZegoUIKitPrebuiltCallConfig.groupVideoCall()
-              : ZegoUIKitPrebuiltCallConfig.groupVoiceCall()
-              : ZegoCallInvitationType.videoCall == data.type
-              ? ZegoUIKitPrebuiltCallConfig.oneOnOneVideoCall()
-              : ZegoUIKitPrebuiltCallConfig.oneOnOneVoiceCall();
-
-          /// custom avatar
-          // config.avatarBuilder = customAvatarBuilder;
-
-          /// support minimizing, show minimizing button
-          config.topMenuBar.isVisible = true;
-          config.topMenuBar.buttons
-              .insert(0, ZegoCallMenuBarButtonName.minimizingButton);
-          config.topMenuBar.buttons
-              .insert(1, ZegoCallMenuBarButtonName.soundEffectButton);
-
-          return config;
-        },
-      );
+      // await ZegoUIKitPrebuiltCallInvitationService().init(
+      //   appID: Constants.appID,
+      //   appSign: Constants.appSign,
+      //   userID: userCredential.user!.uid,
+      //   userName: user!.name,
+      //   plugins: [ZegoUIKitSignalingPlugin()],
+      //   requireConfig: (ZegoCallInvitationData data) {
+      //     final config = (data.invitees.length > 1)
+      //         ? ZegoCallInvitationType.videoCall == data.type
+      //         ? ZegoUIKitPrebuiltCallConfig.groupVideoCall()
+      //         : ZegoUIKitPrebuiltCallConfig.groupVoiceCall()
+      //         : ZegoCallInvitationType.videoCall == data.type
+      //         ? ZegoUIKitPrebuiltCallConfig.oneOnOneVideoCall()
+      //         : ZegoUIKitPrebuiltCallConfig.oneOnOneVoiceCall();
+      //
+      //     /// custom avatar
+      //     // config.avatarBuilder = customAvatarBuilder;
+      //
+      //     /// support minimizing, show minimizing button
+      //     config.topMenuBar.isVisible = true;
+      //     config.topMenuBar.buttons
+      //         .insert(0, ZegoCallMenuBarButtonName.minimizingButton);
+      //     config.topMenuBar.buttons
+      //         .insert(1, ZegoCallMenuBarButtonName.soundEffectButton);
+      //
+      //     return config;
+      //   },
+      // );
       return userCredential.user;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
@@ -148,7 +148,7 @@ class AuthService {
   Future<void> signOut(BuildContext context) async {
     try {
       await _auth.signOut();
-      await ZegoUIKitPrebuiltCallInvitationService().uninit();
+      // await ZegoUIKitPrebuiltCallInvitationService().uninit();
     } catch (e) {
       print('Sign out failed: $e');
     }

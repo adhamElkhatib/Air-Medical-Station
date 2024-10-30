@@ -32,10 +32,10 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
   @override
   void initState() {
     super.initState();
-    intializeZegoCall();
+    initializeZegoCall();
   }
 
-  Future<void> intializeZegoCall() async {
+  Future<void> initializeZegoCall() async {
     try {
       if (ZegoUIKitPrebuiltCallInvitationService().isInit) {
         await ZegoUIKitPrebuiltCallInvitationService().uninit();

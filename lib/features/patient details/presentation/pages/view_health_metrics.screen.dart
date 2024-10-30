@@ -55,15 +55,6 @@ class _ViewHealthMetricsScreenState extends State<ViewHealthMetricsScreen> {
     //!SECTION
   }
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    //
-    //SECTION - State Variables initializations & Listeners
-    //t2 --State
-    //t2 --State
-    //!SECTION
-  }
 
   //SECTION - Stateless functions
   //!SECTION
@@ -103,7 +94,7 @@ class _ViewHealthMetricsScreenState extends State<ViewHealthMetricsScreen> {
 
               if (healthMetrics != null) {
                 return SingleChildScrollView(
-                 padding: EdgeInsets.all(16),
+                 padding: const EdgeInsets.all(16),
                   child: Column(
                     children: [
                       Container(
@@ -153,6 +144,44 @@ class _ViewHealthMetricsScreenState extends State<ViewHealthMetricsScreen> {
                         ),
                       ),
                       const SizedBox(height: 16,),
+                      Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.all(16),
+                        decoration: ShapeDecoration(
+                          color:const Color(0xFFFEFCFB),
+                          shape: RoundedRectangleBorder(
+                            side:const BorderSide(width: 1, color: Color(0xFFE4E2E1)),
+                            borderRadius: BorderRadius.circular(8),
+                          ),),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'Blood Pressure',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 14,
+                                fontFamily: 'Roboto',
+                                fontWeight: FontWeight.w400,
+                                letterSpacing: 0.25,
+                              ),
+                            ),
+                            const SizedBox(height: 4,),
+                            Row(
+                              children: [
+                                Text(healthMetrics.bloodPressure,style: const TextStyle(
+                                  color: Color(0xFF2C2C2C),
+                                  fontSize: 22,
+                                  fontFamily: 'Roboto',
+                                  fontWeight: FontWeight.w400,
+                                ),),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 16,),
+
                       Container(
                         width: double.infinity,
                         padding: const EdgeInsets.all(16),
@@ -220,13 +249,13 @@ class _ViewHealthMetricsScreenState extends State<ViewHealthMetricsScreen> {
                               Container(
                                 width: 4,
                                 height: 4,
-                                decoration: ShapeDecoration(
+                                decoration: const ShapeDecoration(
                                   color: Color(0xFFA4CD3C),
                                   shape: OvalBorder(),
                                 ),
                               ),
-                              SizedBox(width: 4,),
-                              Text(
+                              const   SizedBox(width: 4,),
+                              const   Text(
                                 '95% - 100%',
                                 style: TextStyle(
                                   color: Color(0xFF808080),
@@ -283,7 +312,6 @@ class _ViewHealthMetricsScreenState extends State<ViewHealthMetricsScreen> {
                                 )
                               ],
                             ),
-
                           ],
                         ),
                       ),
